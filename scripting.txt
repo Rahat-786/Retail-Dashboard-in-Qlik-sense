@@ -1,0 +1,137 @@
+Transactions:
+LOAD
+    TransactionID,
+    "Date" AS TDate,
+    "Date" AS Datekey,
+    Week(Date) AS SalesWeek,
+    Year(Date) AS SalesYear,
+    Month(Date) AS SalesMonth,
+    Day(Date) AS SalesDay,
+    Date(MonthStart(Date), 'YYYY-MM') AS SalesMonthYear, 
+    WeekStart(Date, 0, 0) AS SalesWeekStart,
+    StoreID,
+    CustomerID,
+    ProductID,
+    Quantity,
+    Price,
+    TotalAmount
+FROM [lib://DataFiles/Qlik Dashboard Use case - Retail Chain & Customer Data.xlsx]
+(ooxml, embedded labels, table is Transactions);
+
+
+Customers:
+LOAD
+    CustomerID,
+    AgeGroup,
+    Gender,
+    Location,
+    CustomerSegment,
+    LifetimeSpend
+FROM [lib://DataFiles/Qlik Dashboard Use case - Retail Chain & Customer Data.xlsx]
+(ooxml, embedded labels, table is Customers);
+
+Product:
+LOAD
+    ProductID,
+    ProductCategory,
+    ProductSubCategory,
+    Brand,
+    CostPrice,
+    SellingPrice
+FROM [lib://DataFiles/Qlik Dashboard Use case - Retail Chain & Customer Data.xlsx]
+(ooxml, embedded labels, table is Product);
+
+Stores:
+LOAD
+    StoreID,
+    StoreLocation,
+    StoreSize,
+    OpenDate,
+    ManagerName
+FROM [lib://DataFiles/Qlik Dashboard Use case - Retail Chain & Customer Data.xlsx]
+(ooxml, embedded labels, table is Stores);
+
+Campaigns:
+LOAD
+    CampaignID,
+    CampaignName,
+    StartDate,
+    EndDate,
+//   Date(Dual(StartDate & ' - ' & EndDate, StartDate)) AS DateRange,
+	
+    DiscountRate,
+    TargetedSegment
+FROM [lib://DataFiles/Qlik Dashboard Use case - Retail Chain & Customer Data.xlsx]
+(ooxml, embedded labels, table is Campaigns);
+
+
+LEFT JOIN
+// CampaignsDate:
+Load
+	CampaignID,
+    Date(StartDate + IterNo() - 1) AS CDate
+RESIDENT Campaigns
+WHILE StartDate + IterNo() - 1 <= EndDate;
+
+
+NoConcatenate
+CampaignFinal:
+Load *,
+	CDate AS Datekey
+Resident Campaigns;
+
+
+
+LEFT JOIN(Transactions)
+LOAD
+	CDate AS TDate,
+    1 AS CampaignFlag
+    
+Resident Campaigns;
+DROP Table Campaigns;
+
+
+
+//Create a temporary table with only the StartDate and EndDate
+// TempCampaignDates:
+// LOAD 
+//     StartDate,
+//     EndDate,
+//     CampaignID
+// RESIDENT Campaigns;
+
+// //Use IntervalMatch to match Dates in Transactions with StartDate and EndDate
+// IntervalMatchTable:
+// IntervalMatch (Date)
+// LOAD 
+//     StartDate,
+//     EndDate
+// RESIDENT TempCampaignDates;
+
+// //Join CampaignID with IntervalMatch results
+// LEFT JOIN (IntervalMatchTable)
+// LOAD 
+//     StartDate,
+//     EndDate,
+//     CampaignID
+// RESIDENT TempCampaignDates;
+
+// // Drop the temporary table as it's no longer needed
+// DROP TABLE TempCampaignDates;
+
+
+
+
+// // Now join IntervalMatchTable with Transactions based on Date
+// LEFT JOIN (Transactions)
+// LOAD 
+//     Date,
+//     CampaignID
+    
+// RESIDENT IntervalMatchTable;
+
+// // Drop the IntervalMatchTable after joining
+// DROP TABLE IntervalMatchTable;
+
+
+
