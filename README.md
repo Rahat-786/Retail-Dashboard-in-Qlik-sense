@@ -1,6 +1,35 @@
 # Retail-Dashboard-in-Qlik-sense
 This dashboard aims to display insights on customer, campaign, store, sales performance, and profitability analysis. Presents a star schema data model with interactivity. 
 A script file has been added that shows how scripting has been performed. Date ranges has been generated using Interval Match and Joins.  
+
+The Data Model has been normalized in order to achieve star schema:
+
+<img width="510" alt="data model" src="https://github.com/user-attachments/assets/1c1018b6-d402-48f8-9682-592829cab501" />
+
+Sales Performance Sheet that gives insights regarding customers, revenue, products. Uses filter panes to see the desired data:
+
+<img width="960" alt="sales performance analysis" src="https://github.com/user-attachments/assets/eb698f32-4640-44d2-9cbb-07512bd29b26" />
+
+Profitability Analysis; that shows how products and stores have generated revenue and margin per individual item.
+
+<img width="960" alt="profitability analysis" src="https://github.com/user-attachments/assets/4edb2000-b31d-4ba0-b26d-bcf3354fb450" />
+
+Customer Segmantation Analysis; this shows how customers have interacted and helped to generate sales on different products.
+
+<img width="960" alt="customer segmentation analysis" src="https://github.com/user-attachments/assets/1dbffb08-47d1-444b-a121-8298d1b00eb5" />
+
+Campaign Analysis; It shows how different campaigns have contributed to generate revenue. 
+
+<img width="960" alt="campaign effectiveness analysis" src="https://github.com/user-attachments/assets/5a3eb2ae-1d88-4bec-8243-fd8380aa9a8d" />
+
+
+Store Operations; It tells how employees of the store have contributed to generate sales and whether the store was newly established or already existed.
+
+<img width="960" alt="store operations" src="https://github.com/user-attachments/assets/aebec1c3-e088-40fd-be36-34e35e2345be" />
+
+
+
+
 <h1 align="center">Hi 👋, I'm Rahat Qayyum</h1>
 <h3 align="center">Skilled Business Intelligence Professional</h3>
 
