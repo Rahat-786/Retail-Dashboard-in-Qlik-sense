@@ -1,6 +1,6 @@
 # Retail-Dashboard-in-Qlik-sense
 This dashboard aims to display insights on customer, campaign, store, sales performance, and profitability analysis. Presents a star schema data model with interactivity. 
-
+A script file has been added that shows how scripting has been performed. Date ranges has been generated using Interval Match and Joins.  
 <h1 align="center">Hi 👋, I'm Rahat Qayyum</h1>
 <h3 align="center">Skilled Business Intelligence Professional</h3>
 
